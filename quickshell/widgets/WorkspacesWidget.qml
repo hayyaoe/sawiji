@@ -18,35 +18,31 @@ Row {
         let easternArabic = "";
         for (let i = 0; i < westernArabicNumberString.length; i++) {
             const digit = westernArabicNumberString[i];
-            easternArabic += easternArabicNumerals[digit] || digit; // Fallback to original digit if not found
+            easternArabic += easternArabicNumerals[digit] || digit;
         }
         return easternArabic;
     }
 
-    // The Repeater is now directly inside this Row.
-    // It will create a Rectangle (our workspace item) for each item in the model.
     Repeater {
-        model: Hyprland.workspaces // Access Hyprland's workspace data
+        model: Hyprland.workspaces
 
-        // This Rectangle is the delegate for each item in the Repeater's model.
-        // It represents a single workspace button.
         Rectangle {
             id: workspaceItem
-            width: 24 // Fixed width for each workspace button
-            height: workspaceWidgetRoot.buttonHeight// Make the height of the rectangle match the height of the parent Row
+            width: 24
+            height: workspaceWidgetRoot.buttonHeight
             anchors.verticalCenter: parent.verticalCenter
 
             Text {
                 text: workspaceWidgetRoot.toEasternArabicNumbers(modelData.id.toString())
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                color: modelData.active ? "#282A36" : "#909090" // Text color changes for contrast
-                font.pixelSize: 24 // Font size
-                font.bold: true // Bold text
+                color: modelData.active ? "#282A36" : "#909090"
+                font.pixelSize: 24
+                font.bold: true
             }
 
             MouseArea {
-                anchors.fill: parent // Make the mouse area fill its parent (the Rectangle)
+                anchors.fill: parent
                 onClicked: Hyprland.dispatch("workspace " + modelData.id);
             }
         }

@@ -18,7 +18,7 @@ Scope {
         right: true
       }
 
-      implicitHeight: 28
+      implicitHeight: 32
 
       Rectangle{
         id: bar
@@ -33,13 +33,29 @@ Scope {
           buttonHeight: parent.height
         }
 
-        ClockWidget {
+        Row{
+          spacing: 12
+
           anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right
-            rightMargin: 8
+            rightMargin: 12
           }
-          font.pixelSize: 16
+
+          MemoryWidget {
+            anchors{
+              verticalCenter: parent.verticalCenter
+              rightMargin: 8
+            }
+            font.pixelSize: 16
+          }
+
+          ClockWidget {
+            anchors{
+              verticalCenter: parent.verticalCenter
+            }
+            font.pixelSize: 16
+          }
         }
 
         Rectangle {
