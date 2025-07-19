@@ -7,29 +7,29 @@ import QtQuick
 Singleton {
   id: root
 
-  property string memoryTotal
-  property string memoryAvailable
+  property string cpuTemp
+  property string cpuUsage
 
   Process {
-    id: totalMemory
-    command: ["awk","/MemTotal/ {print $2}", "/proc/meminfo"]
+    id: tempCpu
+    command: ["sh", "-c", "sensors | grep -m 1 -oP 'Package id 0:\\s+\\+\\K[0-9.]+' | awk '{printf \"%d\", ($1 + 0.5)}'"]
     running: true
 
     stdout: StdioCollector {
       onStreamFinished: {
-        root.memoryTotal = this.text
+        root.cpuTemp = this.text
       }
     }
   }
 
   Process {
-    id: availableMemory
-    command: ["awk","/MemAvailable/ {print $2}", "/proc/meminfo"]
+    id: usageCpu
+    command: ["sh", "-c", "top -bn1 | awk '/Cpu\\(s\\)/ {printf \"%.0f\", 100 - \$8}'"]
     running: true
 
     stdout: StdioCollector {
       onStreamFinished: {
-        root.memoryAvailable = this.text
+        root.cpuUsage = this.text
       }
     }
   }
@@ -40,8 +40,8 @@ Singleton {
     repeat: true
     triggeredOnStart: true
     onTriggered: {
-      availableMemory.running = true
-      totalMemory.running = true
+      usageCpu.running = true
+      tempCpu.running = true
     }
   }
 }

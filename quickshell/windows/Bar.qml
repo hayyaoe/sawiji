@@ -1,4 +1,5 @@
 import "root:/widgets"
+import "root:/config"
 
 import Quickshell
 import QtQuick
@@ -26,43 +27,56 @@ Scope {
 
         WorkspacesWidget{
           anchors{
-            verticalCenter: parent.verticalCenter
-            left: parent.left
-            leftMargin: 8
+            centerIn: parent
           }
           buttonHeight: parent.height
+          fontFamily: Appearance.font.family.mono
+          fontSize:  Appearance.font.size.large
         }
 
         Row{
-          spacing: 12
+          spacing: Appearance.spacing.normal
 
           anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right
-            rightMargin: 12
+            rightMargin: Appearance.margin.small
+          }
+
+          GPUWidget{
+            anchors{
+              verticalCenter: parent.verticalCenter
+            }
+            displayMode: "temp"
+            font.pixelSize: Appearance.font.size.large
+            font.family: Appearance.font.family.mono
+          }
+          
+          CPUWidget{
+            anchors{
+              verticalCenter: parent.verticalCenter
+            }
+            displayMode: "temp"
+            font.pixelSize: Appearance.font.size.large
+            font.family: Appearance.font.family.mono
           }
 
           MemoryWidget {
             anchors{
               verticalCenter: parent.verticalCenter
-              rightMargin: 8
             }
-            font.pixelSize: 16
+            displayMode: "percentage"
+            font.pixelSize: Appearance.font.size.large
+            font.family: Appearance.font.family.mono
           }
 
           ClockWidget {
             anchors{
               verticalCenter: parent.verticalCenter
             }
-            font.pixelSize: 16
+            font.pixelSize: Appearance.font.size.large
+            font.family: Appearance.font.family.mono
           }
-        }
-
-        Rectangle {
-          anchors.left: parent.left
-          anchors.right: parent.right
-          anchors.bottom: parent.bottom
-          height: 2
         }
       }
     }
