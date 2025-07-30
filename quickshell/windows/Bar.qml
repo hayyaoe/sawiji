@@ -19,63 +19,89 @@ Scope {
         right: true
       }
 
-      implicitHeight: 32
+      implicitHeight: 36
 
       Rectangle{
         id: bar
         anchors.fill: parent
+        color: Colors.colors.background
 
-        WorkspacesWidget{
+        Row{
+          spacing: Appearance.spacing.normal
+          height: parent.height
+
           anchors{
-            centerIn: parent
+            verticalCenter: parent.verticalCenter
+            left: parent.left
           }
-          buttonHeight: parent.height
-          fontFamily: Appearance.font.family.mono
-          fontSize:  Appearance.font.size.large
+          
+          AppLauncherWidget{
+            fontSize: Appearance.font.size.extraLarge
+            fontFamily: Appearance.font.family.material
+            buttonHeight: parent.height
+            buttonWidth: parent.height
+          }
+
+          WorkspacesWidget{
+            anchors.verticalCenter: parent.verticalCenter
+            buttonHeight: parent.height
+            buttonWidth: parent.height
+          }
         }
 
         Row{
           spacing: Appearance.spacing.normal
+          height: parent.height
 
           anchors{
             verticalCenter: parent.verticalCenter
             right: parent.right
-            rightMargin: Appearance.margin.small
           }
 
-          GPUWidget{
-            anchors{
-              verticalCenter: parent.verticalCenter
-            }
-            displayMode: "temp"
-            font.pixelSize: Appearance.font.size.large
-            font.family: Appearance.font.family.mono
+          NetworkWidget{
+            fontSize: Appearance.font.size.large
+            fontFamily: Appearance.font.family.material
+            buttonHeight: parent.height
           }
           
-          CPUWidget{
-            anchors{
-              verticalCenter: parent.verticalCenter
-            }
-            displayMode: "temp"
-            font.pixelSize: Appearance.font.size.large
-            font.family: Appearance.font.family.mono
+          BluetoothWidget{
+            fontSize: Appearance.font.size.large
+            fontFamily: Appearance.font.family.material
+            buttonHeight: parent.height
           }
-
-          MemoryWidget {
-            anchors{
-              verticalCenter: parent.verticalCenter
-            }
-            displayMode: "percentage"
-            font.pixelSize: Appearance.font.size.large
-            font.family: Appearance.font.family.mono
+          
+          AudioWidget{
+            fontSize: Appearance.font.size.large
+            fontFamily: Appearance.font.family.material
+            buttonHeight: parent.height
           }
-
+          
+          BrightnessWidget{
+            fontSize: Appearance.font.size.large
+            fontFamily: Appearance.font.family.material
+            buttonHeight: parent.height
+          }
+          
+          NotificationsWidget{
+            fontSize: Appearance.font.size.large
+            fontFamily: Appearance.font.family.material
+            buttonHeight: parent.height
+          }
+          
           ClockWidget {
             anchors{
               verticalCenter: parent.verticalCenter
             }
             font.pixelSize: Appearance.font.size.large
             font.family: Appearance.font.family.mono
+            color: Colors.colors.foreground
+          }
+
+          PowerWidget{
+            fontSize: Appearance.font.size.extraLarge
+            fontFamily: Appearance.font.family.material
+            buttonHeight: parent.height
+            buttonWidth: parent.height
           }
         }
       }

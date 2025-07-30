@@ -17,7 +17,7 @@ Rectangle {
 
   Text{
     anchors.centerIn: parent
-    text: "⏻"
+    text: "❄"
     font.family: fontFamily
     font.pixelSize: fontSize
     color: Colors.colors.background

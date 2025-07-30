@@ -13,14 +13,14 @@ Singleton {
   
   component FontFamily: QtObject {
     readonly property string mono: "Iosevka"
-    readonly property string material: "Awesome Font 6"
+    readonly property string material: "Lucide"
   }
 
   component FontSize: QtObject {
       readonly property int small: 10
       readonly property int normal: 12
       readonly property int large: 16
-      readonly property int extraLarge: 24
+      readonly property int extraLarge: 20
   }
   
   component Font: QtObject {

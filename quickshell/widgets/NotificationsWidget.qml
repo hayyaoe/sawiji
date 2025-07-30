@@ -9,17 +9,17 @@ Rectangle {
   property real buttonHeight: 20
   property real buttonWidth: 20
   property int fontSize: 12
-  property string fontFamily: "Iosevka"
+  property string fontFamily: "lucide"
 
   width: buttonWidth
   height: buttonHeight
-  color: Colors.colors.foreground
+  color: Colors.colors.background
 
   Text{
     anchors.centerIn: parent
-    text: "⏻"
+    text: ""
     font.family: fontFamily
     font.pixelSize: fontSize
-    color: Colors.colors.background
+    color: Colors.colors.foreground
   }
 }
