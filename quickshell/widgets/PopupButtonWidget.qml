@@ -10,8 +10,9 @@ Rectangle {
   property real buttonWidth: 20
   property int fontSize: 12
   property string fontFamily: "lucide"
+  property string icon: ""
 
-  required property LazyLoader audioPopup
+  signal clicked()
 
   width: buttonWidth
   height: buttonHeight
@@ -19,7 +20,7 @@ Rectangle {
 
   Text{
     anchors.centerIn: parent
-    text: ""
+    text: icon
     font.family: fontFamily
     font.pixelSize: fontSize
     color: Colors.colors.foreground
@@ -30,9 +31,7 @@ Rectangle {
     cursorShape: Qt.PointingHandCursor
 
     onClicked:{
-        if (audioPopup.item) {
-            audioPopup.item.visible = !audioPopup.item.visible
-        }
+      root.clicked()
     }
   }
 }
