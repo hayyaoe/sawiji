@@ -5,5 +5,4 @@ import Quickshell
 
 Scope {
   Bar {}
-  Audio{}
 }
