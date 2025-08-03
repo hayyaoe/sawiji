@@ -18,18 +18,19 @@ Rectangle {
     
     width: buttonWidth
     height: buttonHeight
-    color: mouseArea.containsMouse ? Qt.darker(Colors.colors.background, 1.1) : Colors.colors.background
+    color: Colors.colors.background
     
-    Behavior on color {
-        ColorAnimation { duration: 150 }
-    }
     
     Text {
         anchors.centerIn: parent
         text: icon
         font.family: fontFamily
         font.pixelSize: fontSize
-        color: Colors.colors.foreground
+        color: mouseArea.containsMouse ? Colors.colors.color1 : Colors.colors.foreground
+
+        Behavior on color {
+          ColorAnimation { duration: 100 }
+        }
     }
     
     MouseArea {

@@ -8,6 +8,7 @@ Item {
     property bool hoverable: isMenu;
     property bool animateSize: true;
     property bool show: false;
+    property bool preloadBackground: root.visible;
     property real targetRelativeY: owner.height / 2;
     property real hangTime: isMenu ? 0 : 200;
     
@@ -17,20 +18,20 @@ Item {
     default property alias data: contentItem.data;
     property Component backgroundComponent: null
 
-    // Calculate popup X position based on owner
     function calculatePopupX() {
         const ownerGlobal = owner.mapToGlobal(Qt.point(owner.width / 2, 0));
         return ownerGlobal.x - implicitWidth / 2;
     }
 
     onShowChanged: {
+        if (!popup) return false;
         if (show) popup.setItem(this);
         else popup.removeItem(this);
     }
 
     property bool targetVisible: false
     property real targetOpacity: 0
-    opacity: root.targetOpacity * (popup.scaleMul == 0 ? 0 : (1.0 / popup.scaleMul))
+    opacity: root.targetOpacity * (popup ? (popup.scaleMul == 0 ? 0 : (1.0 / popup.scaleMul)) : 0)
 
     Behavior on targetOpacity {
         id: opacityAnimation
@@ -56,7 +57,7 @@ Item {
     onTargetOpacityChanged: {
         if (!targetVisible && targetOpacity == 0) {
             visible = false;
-            this.parent = null;
+            parent = null;
             if (popup) popup.onHidden(this);
         }
     }

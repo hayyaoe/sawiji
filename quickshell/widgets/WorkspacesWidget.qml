@@ -22,7 +22,6 @@ Row {
 
     Connections {
         target: Hyprland.workspaces
-
         function onObjectInsertedPost(workspace) {
             root.workspaceAdded(workspace)
         }
@@ -40,15 +39,15 @@ Row {
             property bool isOccupied: workspace !== null
             property bool isActive: workspace?.active ?? false
 
-            width:  isActive? root.buttonWidth/2 : isOccupied ? root.buttonWidth/6 : root.buttonWidth/6
-            height: isActive? root.buttonHeight/4 : isOccupied ? root.buttonHeight/6 : root.buttonHeight/6
+            width: Math.max(2, isActive ? root.buttonWidth / 2 : root.buttonWidth / 6)
+            height: Math.max(2, isActive ? root.buttonHeight / 4 : root.buttonHeight / 6)
 
-            color: isActive ? Colors.colors.foreground :
-                   isOccupied ? Colors.colors.foreground :
-                   Colors.colors.color1
+            color: mouseArea.containsMouse ? Colors.colors.foreground : isActive ? Colors.colors.foreground : isOccupied ? Colors.colors.foreground : Colors.colors.color1
 
             MouseArea {
+                id: mouseArea
                 anchors.fill: parent
+                hoverEnabled: true
                 onClicked: Hyprland.dispatch("workspace " + wsId)
                 cursorShape: Qt.PointingHandCursor
             }
@@ -57,31 +56,30 @@ Row {
                 target: root
                 function onWorkspaceAdded(w) {
                     if (w.id === workspaceItem.wsId)
-                        workspaceItem.workspace = w;
+                        workspaceItem.workspace = w
                 }
-              }
+            }
 
-              Behavior on color {
+            Behavior on color {
                 ColorAnimation {
-                  duration: 200
-                  easing.type: Easing.Linear
+                    duration: 200
+                    easing.type: Easing.Linear
                 }
-              }
+            }
 
+            Behavior on height {
+                NumberAnimation {
+                    duration: 40
+                    easing.type: Easing.Linear
+                }
+            }
 
-              Behavior on height {
+            Behavior on width {
                 NumberAnimation {
-                  duration: 40
-                  easing.type: Easing.Linear
+                    duration: 40
+                    easing.type: Easing.Linear
                 }
-              }
-              
-              Behavior on width {
-                NumberAnimation {
-                  duration: 40
-                  easing.type: Easing.Linear
-                }
-              }
+            }
         }
     }
 }
