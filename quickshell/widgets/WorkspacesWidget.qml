@@ -16,14 +16,14 @@ Row {
 
     Component.onCompleted: {
         Hyprland.workspaces.values.forEach(workspace => {
-            workspaceAdded(workspace)
+            workspaceAdded(workspace);
         });
     }
 
     Connections {
         target: Hyprland.workspaces
         function onObjectInsertedPost(workspace) {
-            root.workspaceAdded(workspace)
+            root.workspaceAdded(workspace);
         }
     }
 
@@ -56,7 +56,7 @@ Row {
                 target: root
                 function onWorkspaceAdded(w) {
                     if (w.id === workspaceItem.wsId)
-                        workspaceItem.workspace = w
+                        workspaceItem.workspace = w;
                 }
             }
 
