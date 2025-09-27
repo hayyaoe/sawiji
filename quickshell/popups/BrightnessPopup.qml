@@ -11,8 +11,8 @@ LazyLoader {
 
     property var brightnessButton
     property var windowRoot
-    property real brightnessLevel: 0.7 // 0.0 to 1.0
-    property bool blueLightFilterOn: true
+    property real brightnessLevel: 1.0
+    property bool blueLightFilter: false
 
     PopupWindow {
         id: brightnessPopupWindow
@@ -28,19 +28,19 @@ LazyLoader {
         }
 
         function toggleBlueLightFilter() {
-            if (blueLightFilterOn) {
+            if (blueLightFilter) {
                 blueLightProc.command = ["hyprctl", "hyprsunset", "identity"];
                 blueLightProc.running = true;
-                blueLightFilterOn = false;
+                blueLightFilter = false;
             } else {
                 blueLightProc.command = ["hyprctl", "hyprsunset", "temperature", "3500"];
                 blueLightProc.running = true;
-                blueLightFilterOn = true;
+                blueLightFilter = true;
             }
         }
 
         function setBrightness(level) {
-            var value = Math.max(0, Math.min(1, level));
+            var value = Math.max(0.1, Math.min(1, level));
             brightnessLevel = value;
 
             var percent = Math.round(value * 100);
@@ -54,7 +54,7 @@ LazyLoader {
             rect.y: brightnessButton.mapToGlobal(Qt.point(0, brightnessButton.height)).y + Appearance.margin.normal
         }
 
-        implicitWidth: windowRoot.width / 8
+        implicitWidth: windowRoot.width / 6
 
         MouseArea {
             anchors.fill: parent
@@ -90,7 +90,7 @@ LazyLoader {
                     Rectangle {
                         id: sliderTrack
                         Layout.fillWidth: true
-                        height: Appearance.font.size.small / 2
+                        height: Appearance.font.size.small / 3
                         color: Colors.colors.color1
                         Layout.alignment: Qt.AlignVCenter
 
@@ -148,7 +148,7 @@ LazyLoader {
                         }
 
                         Text {
-                            text: (brightnessPopup.blueLightFilterOn ? "ON" : "OFF")
+                            text: (brightnessPopup.blueLightFilter ? "ON" : "OFF")
                             font.family: Appearance.font.family.mono
                             font.pixelSize: Appearance.font.size.large
                             color: Colors.colors.foreground

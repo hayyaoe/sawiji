@@ -36,10 +36,8 @@ Scope {
                 }
 
                 if (popup.item) {
-                    if (currentPopup) {
-                      popupAutoCloseTimer.restart();
-                      popupAutoCloseTimer.stop();
-                    }
+                    popupAutoCloseTimer.restart();
+                    popupAutoCloseTimer.stop();
 
                     popup.item.visible = true;
                     currentPopup = popup.item;
